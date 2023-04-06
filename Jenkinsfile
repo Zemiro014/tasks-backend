@@ -21,6 +21,13 @@ pipeline {
                 }              
             }
         }
+        stage ('Quality Gate Sonar') {
+            steps {
+                timeout(time: 1, Unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }                
+            }
+        }
     }
 }
 
