@@ -1,5 +1,5 @@
 pipeline {
-    age any
+    agent any
     stages{
         stage ('Just Test') {
             steps {
