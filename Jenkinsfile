@@ -33,15 +33,17 @@ pipeline {
         stage ('Quality Gate Sonar') {
             steps {
                 // Run your SonarQube analysis and save the task id to a variable
-                def analysisTask = withSonarQubeEnv('SONAR_SCANNER') {
-                    sh 'mvn clean package sonar:sonar'
-                }
-                // Use the task id to wait for the Quality Gate to complete
-                timeout(time: 1, unit: 'HOURS') {
-                    def qg = waitForQualityGate abortPipeline: true
-                        if (qg.status != 'OK') {
-                            error "Pipeline aborted due to Quality Gate failure: ${qg.status}"
-                        }
+                step {
+                    def analysisTask = withSonarQubeEnv('SONAR_SCANNER') {
+                        sh 'mvn clean package sonar:sonar'
+                    }
+                                // Use the task id to wait for the Quality Gate to complete
+                    timeout(time: 1, unit: 'HOURS') {
+                        def qg = waitForQualityGate abortPipeline: true
+                            if (qg.status != 'OK') {
+                                error "Pipeline aborted due to Quality Gate failure: ${qg.status}"
+                            }
+                    }
                 }
             }
         }
