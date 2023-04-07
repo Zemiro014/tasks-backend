@@ -30,7 +30,7 @@ pipeline {
         //         }
         //     }
         // }
-        stages ('Quality Gate Sonar') {
+        stage ('Quality Gate Sonar') {
             steps {
                 // Run your SonarQube analysis and save the task id to a variable
                 def analysisTask = withSonarQubeEnv('SONAR_SCANNER') {
