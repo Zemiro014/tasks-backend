@@ -36,13 +36,13 @@ pipeline {
                 def analysisTask = withSonarQubeEnv('SONAR_SCANNER') {
                     sh 'mvn clean package sonar:sonar'
                 }
-            }
-                    // Use the task id to wait for the Quality Gate to complete
-            timeout(time: 1, unit: 'HOURS') {
-                def qg = waitForQualityGate abortPipeline: true
-                    if (qg.status != 'OK') {
-                        error "Pipeline aborted due to Quality Gate failure: ${qg.status}"
-                    }
+                // Use the task id to wait for the Quality Gate to complete
+                timeout(time: 1, unit: 'HOURS') {
+                    def qg = waitForQualityGate abortPipeline: true
+                        if (qg.status != 'OK') {
+                            error "Pipeline aborted due to Quality Gate failure: ${qg.status}"
+                        }
+                }
             }
         }
     }
