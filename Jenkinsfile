@@ -45,5 +45,15 @@ pipeline {
                 }
             }
         }
+
+        stage ('Deploy Frontend') {
+            steps {
+                dir('frontend') {
+                    git credentialsId: 'GitHubId', url: 'https://github.com/Zemiro014/tasks-frentend'
+                    sh 'mvn clean package'
+                    deploy adapters: [tomcat8(credentialsId: 'TomCatId', path: '', url: 'http://localhost:8001/')], contextPath: 'tasks', war: 'target/tasks.war'                     
+                }
+            }
+        }
     }
 }
