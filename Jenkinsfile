@@ -39,8 +39,10 @@ pipeline {
 
         stage ('API Test') {
             steps {
-                git credentialsId: 'GitHubId', url: 'https://github.com/Zemiro014/test-tasks-api'
-                sh 'mvn test'
+                dir('api-test') {
+                    git credentialsId: 'GitHubId', url: 'https://github.com/Zemiro014/test-tasks-api'
+                    sh 'mvn test'
+                }
             }
         }
     }
