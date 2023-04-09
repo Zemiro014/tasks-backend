@@ -21,12 +21,21 @@ pipeline {
                 }
             }
         }
-        // stage ('Quality Gate Sonar') {
-        //     steps {
-        //         sleep(20) {
-        //             timeout(time: 1, unit: 'MINUTES') {
-        //                 waitForQualityGate abortPipeline: true
-        //             }
+        stage ('Quality Gate Sonar') {
+            steps {
+                // sleep(20) {
+                //     timeout(time: 1, unit: 'HOURS') {
+                //         waitForQualityGate abortPipeline: true
+                //     }
+                // }
+                waitForQualityGate abortPipeline: false, credentialsId: 'JenkinsToken'
+            }
+        }
+        // tage ('Quality Gate Sonar') {
+        //     timeout(time: 1, unit: 'HOURS') {
+        //         def qg = waitForQualityGate()
+        //         if (qg.status != 'OK') {
+        //             error "Pipeline aborted due to quality gate failure: ${qg.status}"
         //         }
         //     }
         // }
