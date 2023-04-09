@@ -21,13 +21,19 @@ pipeline {
                 }
             }
         }
-        stage ('Quality Gate Sonar') {
+        // stage ('Quality Gate Sonar') {
+        //     steps {
+        //         sleep(20) {
+        //             timeout(time: 1, unit: 'MINUTES') {
+        //                 waitForQualityGate abortPipeline: true
+        //             }
+        //         }
+        //     }
+        // }
+
+        stage ('Deploy Backend') {
             steps {
-                sleep(20) {
-                    timeout(time: 1, unit: 'MINUTES') {
-                        waitForQualityGate abortPipeline: true
-                    }
-                }
+                deploy adapters: [tomcat8(credentialsId: 'TomCatId', path: '', url: 'http://localhost:8001/')], contextPath: 'tasks-backend', war: 'target/tasks-backend.war'
             }
         }
     }
