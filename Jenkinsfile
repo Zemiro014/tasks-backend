@@ -21,16 +21,16 @@ pipeline {
                 }
             }
         }
-        stage ('Quality Gate Sonar') {
-            steps {
-                // sleep(20) {
-                //     timeout(time: 1, unit: 'HOURS') {
-                //         waitForQualityGate abortPipeline: true
-                //     }
-                // }
-                waitForQualityGate abortPipeline: false, credentialsId: 'JenkinsToken'
-            }
-        }
+        // stage ('Quality Gate Sonar') {
+        //     steps {
+        //         // sleep(20) {
+        //         //     timeout(time: 1, unit: 'HOURS') {
+        //         //         waitForQualityGate abortPipeline: true
+        //         //     }
+        //         // }
+        //         waitForQualityGate abortPipeline: false, credentialsId: 'JenkinsToken'
+        //     }
+        // }
         // tage ('Quality Gate Sonar') {
         //     timeout(time: 1, unit: 'HOURS') {
         //         def qg = waitForQualityGate()
